@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Contact</title>
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <!-- Script -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-8 bg-white rounded-lg shadow-lg">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Simple Contact</h1>
+
+        <div class="sm:flex sm:items-center justify-end">
+          <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            <button
+              type="button"
+              id="addContactBtn"
+              class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              Add New Contact
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <input
+            type="text"
+            id="search"
+            placeholder="Search by name..."
+            class="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5" />
+        </div>
+
+        <div class="mt-8 flow-root">
+          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div
+              class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <div
+                class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-300">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th
+                        scope="col"
+                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 text-center">
+                        No
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-center">
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-center">
+                        Phone
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-center">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="contactsTable"
+                    class="divide-y divide-gray-200 bg-white"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Start : Modal Form -->
+        <div
+          class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+          id="contactFormModal">
+          <form
+            id="contactForm"
+            class="bg-white p-6 rounded-lg shadow-lg w-96 space-y-4">
+            <input type="hidden" id="contactId" />
+
+            <label class="block">
+              <span class="text-gray-700"
+                >Name<span class="text-red-500">*</span>:</span
+              >
+              <input
+                type="text"
+                id="name"
+                required
+                class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </label>
+
+            <label class="block">
+              <span class="text-gray-700"
+                >Phone<span class="text-red-500">*</span>:</span
+              >
+              <input
+                type="number"
+                id="phone"
+                required
+                class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </label>
+
+            <label class="block">
+              <span class="text-gray-700">Address:</span>
+              <input
+                type="text"
+                id="address"
+                class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </label>
+
+            <label class="block">
+              <span class="text-gray-700">Age:</span>
+              <input
+                type="number"
+                id="age"
+                class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </label>
+
+            <label class="block">
+              <span class="text-gray-700">Email:</span>
+              <input
+                type="email"
+                id="email"
+                class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </label>
+
+            <div class="flex justify-end space-x-2">
+              <button
+                type="submit"
+                class="px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600">
+                Save
+              </button>
+              <button
+                type="button"
+                id="closeModalBtn"
+                class="px-4 py-2 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- End : Modal Form -->
+
+        <!-- Start : Modal Contact Detail -->
+        <div id="contactDetailModal" class="relative z-10 hidden">
+          <div
+            class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+          <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div
+              class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div
+                class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                <div>
+                  <div>
+                    <h3
+                      class="text-lg font-bold text-center leading-6 text-gray-900"
+                      id="modal-title">
+                      Detail Contact
+                    </h3>
+                    <div class="mt-5">
+                      <p>
+                        <strong>Nama:</strong> <span id="detailName"></span>
+                      </p>
+                      <p>
+                        <strong>Telepon:</strong> <span id="detailPhone"></span>
+                      </p>
+                      <p>
+                        <strong>Alamat:</strong>
+                        <span id="detailAddress"></span>
+                      </p>
+                      <p><strong>Umur:</strong> <span id="detailAge"></span></p>
+                      <p>
+                        <strong>Email:</strong> <span id="detailEmail"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 sm:mt-6">
+                  <button
+                    type="button"
+                    id="closeDetailModal"
+                    class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End : Modal Contact Detail -->
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
