@@ -4,9 +4,9 @@ const contactForm = document.getElementById("contactForm");
 const addContactBtn = document.getElementById("addContactBtn");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const searchInput = document.getElementById("search");
-
 const contactDetailModal = document.getElementById("contactDetailModal");
 const closeDetailModalBtn = document.getElementById("closeDetailModal");
+const sortBtn = document.getElementById("sortBtn");
 
 // Menyimpan data kontak
 let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
@@ -17,7 +17,7 @@ function renderContacts(data = contacts) {
     contactsTable.innerHTML = `
       <tr>
         <td colspan="7" class="text-center text-gray-500 py-4">
-          Kontak tidak ditemukan
+          Contact not found
         </td>
       </tr>
     `;
@@ -31,6 +31,11 @@ function renderContacts(data = contacts) {
         <td class="border px-4 py-2 text-center">${index + 1}</td>
         <td class="border px-4 py-2">${contact.name}</td>
         <td class="border px-4 py-2">${contact.phone}</td>
+        <td class="border px-4 py-2 text-center">
+        <span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium ring-1 ring-inset bg-purple-50 text-purple-700 ring-purple-700/10">${
+          contact.categories
+        }</span>
+        </td>
         <td class="border px-4 py-2 space-x-2">
         <div class="flex justify-center items-center flex-col md:flex-row space-x-2">
           <button class="rounded-full bg-green-600 px-2.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" onclick="viewContactDetail(${
@@ -41,7 +46,7 @@ function renderContacts(data = contacts) {
           })">Edit</button>
           <button class="rounded-full bg-red-600 px-2.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" onclick="deleteContact(${
             contact.id
-          }); event.stopPropagation();">Delete</button>
+          });">Delete</button>
         </div>
         
         </td>
@@ -60,6 +65,7 @@ function saveContact(e) {
   const address = document.getElementById("address").value;
   const age = document.getElementById("age").value;
   const email = document.getElementById("email").value;
+  const categories = document.getElementById("categories").value;
 
   if (id) {
     const index = contacts.findIndex((c) => c.id == id);
@@ -70,10 +76,11 @@ function saveContact(e) {
       address,
       age,
       email,
+      categories,
     };
   } else {
     const newId = contacts.length ? contacts[contacts.length - 1].id + 1 : 1;
-    contacts.push({ id: newId, name, phone, address, age, email });
+    contacts.push({ id: newId, name, phone, address, age, email, categories });
   }
 
   localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -89,6 +96,8 @@ function viewContactDetail(id) {
   document.getElementById("detailAddress").textContent = contact.address || "-";
   document.getElementById("detailAge").textContent = contact.age || "-";
   document.getElementById("detailEmail").textContent = contact.email || "-";
+  document.getElementById("detailCategories").textContent =
+    contact.categories || "-";
   openDetailModal();
 }
 
@@ -101,6 +110,7 @@ function editContact(id) {
   document.getElementById("address").value = contact.address;
   document.getElementById("age").value = contact.age;
   document.getElementById("email").value = contact.email;
+  document.getElementById("categories").value = contact.categories;
   openModal();
 }
 
@@ -159,11 +169,23 @@ function searchContacts() {
   renderContacts(filteredContacts);
 }
 
+function sortToggle() {
+  document.getElementById("sortModal").classList.toggle("hidden");
+}
+
+function sortContacts(params) {
+  const sortContacts = contacts.filter((contact) =>
+    contact.categories.includes(params)
+  );
+  renderContacts(sortContacts);
+}
+
 // Event listeners
 addContactBtn.addEventListener("click", openModal);
 closeModalBtn.addEventListener("click", closeModal);
 contactForm.addEventListener("submit", saveContact);
 searchInput.addEventListener("input", searchContacts);
 closeDetailModalBtn.addEventListener("click", closeDetailModal);
+sortBtn.addEventListener("click", sortToggle);
 
 renderContacts();

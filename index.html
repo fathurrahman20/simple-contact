@@ -33,6 +33,7 @@
       <div class="px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold text-center mb-8">Simple Contact</h1>
 
+        <!-- Start : Add Contact Btn -->
         <div class="sm:flex sm:items-center justify-end">
           <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <button
@@ -43,7 +44,9 @@
             </button>
           </div>
         </div>
+        <!-- End : Add Contact Btn -->
 
+        <!-- Start : Search -->
         <div class="mb-4">
           <input
             type="text"
@@ -51,7 +54,81 @@
             placeholder="Search by name..."
             class="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5" />
         </div>
+        <!-- End : Search -->
 
+        <!-- Start : Sort -->
+        <div class="col-start-1 row-start-1 py-4">
+          <div class="mx-auto flex max-w-7xl justify-end">
+            <div class="relative inline-block">
+              <div class="flex">
+                <button
+                  type="button"
+                  class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+                  id="sortBtn"
+                  aria-expanded="false"
+                  aria-haspopup="true">
+                  Sort
+                  <svg
+                    class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    data-slot="icon">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <div
+                id="sortModal"
+                class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="menu-button"
+                tabindex="-1">
+                <div class="py-1" role="none">
+                  <p
+                    id="allContacts"
+                    class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                    role="menuitem"
+                    tabindex="-1"
+                    onclick="renderContacts(); sortToggle();">
+                    All
+                  </p>
+                  <p
+                    id="friendContacts"
+                    class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                    role="menuitem"
+                    tabindex="-1"
+                    onclick="sortContacts('Friends'); sortToggle();">
+                    Friends
+                  </p>
+                  <p
+                    id="familyContacts"
+                    class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                    role="menuitem"
+                    tabindex="-1"
+                    onclick="sortContacts('Family'); sortToggle();">
+                    Family
+                  </p>
+                  <p
+                    id="workContacts"
+                    class="block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                    role="menuitem"
+                    tabindex="-1"
+                    onclick="sortContacts('Work'); sortToggle();">
+                    Work
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End : Sort -->
+
+        <!-- Start : Table -->
         <div class="mt-8 flow-root">
           <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div
@@ -63,22 +140,27 @@
                     <tr>
                       <th
                         scope="col"
-                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 text-center">
+                        class="py-3.5 pl-4 pr-3 text-left text-sm font-bold text-gray-900 sm:pl-6 text-center">
                         No
                       </th>
                       <th
                         scope="col"
-                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-center">
+                        class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 text-center">
                         Name
                       </th>
                       <th
                         scope="col"
-                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-center">
+                        class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 text-center">
                         Phone
                       </th>
                       <th
                         scope="col"
-                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-center">
+                        class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 text-center">
+                        Category
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 text-center">
                         Actions
                       </th>
                     </tr>
@@ -91,6 +173,7 @@
             </div>
           </div>
         </div>
+        <!-- End : Table -->
 
         <!-- Start : Modal Form -->
         <div
@@ -102,8 +185,8 @@
             <input type="hidden" id="contactId" />
 
             <label class="block">
-              <span class="text-gray-700"
-                >Name<span class="text-red-500">*</span>:</span
+              <span class="block text-sm font-medium leading-6 text-gray-900"
+                >Name<span class="text-red-500">*</span></span
               >
               <input
                 type="text"
@@ -113,8 +196,8 @@
             </label>
 
             <label class="block">
-              <span class="text-gray-700"
-                >Phone<span class="text-red-500">*</span>:</span
+              <span class="block text-sm font-medium leading-6 text-gray-900"
+                >Phone<span class="text-red-500">*</span></span
               >
               <input
                 type="number"
@@ -124,7 +207,9 @@
             </label>
 
             <label class="block">
-              <span class="text-gray-700">Address:</span>
+              <span class="block text-sm font-medium leading-6 text-gray-900"
+                >Address</span
+              >
               <input
                 type="text"
                 id="address"
@@ -132,7 +217,9 @@
             </label>
 
             <label class="block">
-              <span class="text-gray-700">Age:</span>
+              <span class="block text-sm font-medium leading-6 text-gray-900"
+                >Age</span
+              >
               <input
                 type="number"
                 id="age"
@@ -140,11 +227,29 @@
             </label>
 
             <label class="block">
-              <span class="text-gray-700">Email:</span>
+              <span class="block text-sm font-medium leading-6 text-gray-900"
+                >Email</span
+              >
               <input
                 type="email"
                 id="email"
                 class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </label>
+
+            <label
+              for="label"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              ><span class="block text-sm font-medium leading-6 text-gray-900"
+                >Categories</span
+              >
+              <select
+                id="categories"
+                name="categories"
+                class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="Friends" selected>Friends</option>
+                <option value="Family">Family</option>
+                <option value="Work">Work</option>
+              </select>
             </label>
 
             <div class="flex justify-end space-x-2">
@@ -196,6 +301,10 @@
                       <p>
                         <strong>Email:</strong> <span id="detailEmail"></span>
                       </p>
+                      <p>
+                        <strong>Categorie:</strong>
+                        <span id="detailCategories"></span>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -215,6 +324,6 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
