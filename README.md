@@ -11,6 +11,7 @@ This project is a **Simple Contact Application** built using **HTML**, **Tailwin
 3. **Delete Contacts**: Delete a contact with a confirmation dialog.
 4. **Search Contacts**: Search by contact name in real-time.
 5. **View Contact Details**: Display detailed information about a contact in a modal.
-6. **Persistent Data**: Data is stored in the browser's localStorage.
+6. **Sort Contacts**: Sort by contact category in real-time.
+7. **Persistent Data**: Data is stored in the browser's localStorage.
 
 ---

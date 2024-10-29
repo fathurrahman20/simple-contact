@@ -148,7 +148,7 @@ function openModal() {
 function closeModal() {
   contactFormModal.classList.add("hidden");
   contactForm.reset();
-  document.getElementById("contactId").value = ""; // Pastikan ID kosong untuk tambah kontak baru
+  document.getElementById("contactId").value = "";
 }
 
 // Buka modal detail kontak
@@ -161,6 +161,7 @@ function closeDetailModal() {
   contactDetailModal.classList.add("hidden");
 }
 
+// Cari kontak by nama
 function searchContacts() {
   const searchTerm = searchInput.value.toLowerCase();
   const filteredContacts = contacts.filter((contact) =>
@@ -169,10 +170,12 @@ function searchContacts() {
   renderContacts(filteredContacts);
 }
 
+// Toggle modal sort
 function sortToggle() {
   document.getElementById("sortModal").classList.toggle("hidden");
 }
 
+// Tampil kontak by kategori
 function sortContacts(params) {
   const sortContacts = contacts.filter((contact) =>
     contact.categories.includes(params)
@@ -180,7 +183,6 @@ function sortContacts(params) {
   renderContacts(sortContacts);
 }
 
-// Event listeners
 addContactBtn.addEventListener("click", openModal);
 closeModalBtn.addEventListener("click", closeModal);
 contactForm.addEventListener("submit", saveContact);
