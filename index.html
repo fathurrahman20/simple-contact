@@ -202,6 +202,8 @@
               <input
                 type="number"
                 id="phone"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="13"
                 required
                 class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </label>
@@ -223,6 +225,8 @@
               <input
                 type="number"
                 id="age"
+                min="1"
+                max="100"
                 class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </label>
 
@@ -288,21 +292,21 @@
                     </h3>
                     <div class="mt-5">
                       <p>
-                        <strong>Nama:</strong> <span id="detailName"></span>
+                        <strong>Name:</strong> <span id="detailName"></span>
                       </p>
                       <p>
-                        <strong>Telepon:</strong> <span id="detailPhone"></span>
+                        <strong>Phone:</strong> <span id="detailPhone"></span>
                       </p>
                       <p>
-                        <strong>Alamat:</strong>
+                        <strong>Address:</strong>
                         <span id="detailAddress"></span>
                       </p>
-                      <p><strong>Umur:</strong> <span id="detailAge"></span></p>
+                      <p><strong>Age:</strong> <span id="detailAge"></span></p>
                       <p>
                         <strong>Email:</strong> <span id="detailEmail"></span>
                       </p>
                       <p>
-                        <strong>Categorie:</strong>
+                        <strong>Category:</strong>
                         <span id="detailCategories"></span>
                       </p>
                     </div>

@@ -8,10 +8,10 @@ const contactDetailModal = document.getElementById("contactDetailModal");
 const closeDetailModalBtn = document.getElementById("closeDetailModal");
 const sortBtn = document.getElementById("sortBtn");
 
-// Menyimpan data kontak
+// Save contacts to localStorage
 let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
 
-// Render kontak ke tabel
+// Render contacts to table
 function renderContacts(data = contacts) {
   if (data.length === 0) {
     contactsTable.innerHTML = `
@@ -56,7 +56,7 @@ function renderContacts(data = contacts) {
     .join("");
 }
 
-// Simpan atau tambah kontak baru
+// Save or update contact
 function saveContact(e) {
   e.preventDefault();
   const id = document.getElementById("contactId").value;
@@ -88,7 +88,7 @@ function saveContact(e) {
   closeModal();
 }
 
-// Lihat detail kontak
+// View Contact Detail
 function viewContactDetail(id) {
   const contact = contacts.find((c) => c.id === id);
   document.getElementById("detailName").textContent = contact.name;
@@ -96,12 +96,11 @@ function viewContactDetail(id) {
   document.getElementById("detailAddress").textContent = contact.address || "-";
   document.getElementById("detailAge").textContent = contact.age || "-";
   document.getElementById("detailEmail").textContent = contact.email || "-";
-  document.getElementById("detailCategories").textContent =
-    contact.categories || "-";
+  document.getElementById("detailCategories").textContent = contact.categories;
   openDetailModal();
 }
 
-// Edit kontak
+// Edit Contact
 function editContact(id) {
   const contact = contacts.find((contact) => contact.id === id);
   document.getElementById("contactId").value = contact.id;
@@ -114,7 +113,7 @@ function editContact(id) {
   openModal();
 }
 
-// Hapus kontak
+// Delete Contact
 function deleteContact(id) {
   Swal.fire({
     title: "Are you sure?",
@@ -139,29 +138,29 @@ function deleteContact(id) {
   });
 }
 
-// Buka modal form
+// Open modal form
 function openModal() {
   contactFormModal.classList.remove("hidden");
 }
 
-// Tutup modal form dan reset form
+// Close modal form and reset form
 function closeModal() {
   contactFormModal.classList.add("hidden");
   contactForm.reset();
   document.getElementById("contactId").value = "";
 }
 
-// Buka modal detail kontak
+// Open detail contact modal
 function openDetailModal() {
   contactDetailModal.classList.remove("hidden");
 }
 
-// Tutup modal detail kontak
+// Close detail contact modal
 function closeDetailModal() {
   contactDetailModal.classList.add("hidden");
 }
 
-// Cari kontak by nama
+// Search contact by name
 function searchContacts() {
   const searchTerm = searchInput.value.toLowerCase();
   const filteredContacts = contacts.filter((contact) =>
@@ -170,12 +169,12 @@ function searchContacts() {
   renderContacts(filteredContacts);
 }
 
-// Toggle modal sort
+// Close sort modal
 function sortToggle() {
   document.getElementById("sortModal").classList.toggle("hidden");
 }
 
-// Tampil kontak by kategori
+// Sort contacts by categories
 function sortContacts(params) {
   const sortContacts = contacts.filter((contact) =>
     contact.categories.includes(params)
